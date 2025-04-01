@@ -1,0 +1,19 @@
+{
+  "name": "kunden-sql",
+  "version": "0.0.1",
+  "description": "tolles Projekt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "toll",
+    "mega",
+    "Dienstag"
+  ],
+  "author": "ich",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^11.9.1"
+  }
+}
