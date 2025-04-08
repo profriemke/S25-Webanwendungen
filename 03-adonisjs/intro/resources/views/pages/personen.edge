@@ -7,13 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{gruss}}</h1>
-    auf meiner Seite, liebe 
-    <ul>
-    @each(name in namen)
-        <li>{{name}}</li>
+    @if(isLoggedIn)
+        @each((person, index) in personen)
+             <p>{{index +1}}. {{person.vorname}} {{person.nachname}}</p>
+        @end
+    @else
+        Du bist nicht angemeldet 
     @end
-    </ul>
-    <a href="/impressum">Impressum</a>
 </body>
 </html>
