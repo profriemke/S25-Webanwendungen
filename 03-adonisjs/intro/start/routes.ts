@@ -9,25 +9,42 @@
 
 import router from '@adonisjs/core/services/router'
 
+let count =0
+const pizzaVote={
+    ja: 0,
+    nein: 0,
+    vielleicht: 0
+}
+
+router.get('/count', async ({ view})=>{
+    count++
+    return view.render('pages/count', {count})
+})
+
+router.get('/pizzavote', async({ view })=>{
+    return view.render('pages/pizzavote')
+})
+
 router.get('/nutzer', async ({ view })=>{
     return view.render('pages/nutzer')
 })
 
 router.post('/nutzer/anzeige', async ({view, request})=>{
     let daten = { vorname: request.input('vorname'),
-                  nachname: request.input('nachname')}              
+                  nachname: request.input('nachname')}    
+    console.log(daten)          
     return view.render('pages/anzeige', daten)
 })
 
 router.get('/', async ({ view })=>{ 
-    const state = {gruss: 'Guten Mittag', namen: ['Lisa', 'Paul', 'Malte']}
+    const state = {gruss: 'Guten Mittag', namen: ['Lisa', 'Paul', 'Malte', 'Klaus']}
     console.log(await view.render('pages/meinStart', state))
     return view.render('pages/meinStart', state)
 })
 
 router.get('/personen', async ({ view })=>{
     const data = {
-        isLoggedIn: false,
+        isLoggedIn: true,
         personen:[
         {nachname:'Müller', vorname:'Malte'},
         {nachname:'Lauer', vorname:'Lisa'},
