@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Vote</title>
+</head>
+<body>
+    <h1>Pizza-Abstimmung</h1>
+    <p>Magst Du Pizza?</p>
+    <form action="/pizzavote/ergebnis" method="POST">
+        {{csrfField()}}
+        <input type="radio" name="vote" id="ja" value="ja">
+        <label for="ja">ja</label><br>
+        <input type="radio" name="vote" id="nein" value="nein">
+        <label for="nein">nein</label><br>
+        <input type="radio" name="vote" id="vielleicht" value="vielleicht">
+        <label for="vielleicht">vielleicht</label><br>
+        <button type="submit">abstimmen</button>
+    </form>
+</body>
+</html>

@@ -8,6 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import db from '@adonisjs/lucid/services/db'
 
 let count =0
 const pizzaVote={
@@ -16,11 +17,36 @@ const pizzaVote={
     vielleicht: 0
 }
 
+router.get('/kunde', async({view})=>{
+    const kunden = await  db.from('kunde')
+                            .select('vorname', 'nachname', 'email')
+                            .where({ort:'Stuttgart', vorname: 'Nhi'})
+                            .limit(10)
+    return view.render('pages/kunde',{kunden: kunden})
+})
+
 router.get('/count', async ({ view})=>{
     count++
     return view.render('pages/count', {count})
 })
 
+router.post('/pizzavote/ergebnis', async({view, request})=>{
+    const vote = request.input('vote')
+    if(!vote){
+        return 'Fehler'
+    }
+    if(vote == 'ja'){
+        pizzaVote.ja++
+    }
+    if(vote == 'nein'){
+        pizzaVote.nein++
+    }
+    if(vote == 'vielleicht'){
+        pizzaVote.vielleicht++
+    }
+
+    return view.render('pages/pizzavote_ergebnis', pizzaVote)
+})
 router.get('/pizzavote', async({ view })=>{
     return view.render('pages/pizzavote')
 })

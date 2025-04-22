@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Unsere Kunden</h1>
+    <ul>
+        @each(kunde in kunden)
+            <li>{{kunde.vorname}} {{kunde.nachname}} {{kunde.email}}</li>
+        @end
+    </ul>
+    
+    <table>
+        <tr>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>E-Mail</th>
+        </tr>
+        @each(kunde in kunden)
+        <tr>
+            <td>{{kunde.vorname}}</td>
+            <td>{{kunde.nachname}}</td>
+            <td>{{kunde.email}}</td>
+        </tr>
+        @end        
+    </table>
+</body>
+</html>
