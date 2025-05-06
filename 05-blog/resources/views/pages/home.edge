@@ -6,12 +6,20 @@
   <title>Riemkes Blog</title>
 </head>
 <body>
+  @include('partials/menu')
   <h1>Mein Blog</h1>
+  @if(user === undefined)
+  <p><a href="/login">anmelden</a></p>
+  @else
+  <p>
+    Hallo, {{ user.firstname }}
+  </p>
+  <a href="/admin/post/create">neuer Post</a> <a href="/logout">logout</a>
+  @end
   @each(post in posts)
     <p>
       <h2>{{ post.title }}</h2>
-      <small>{{ post.teaser }}</small><br>
-      {{post.text}}
+      {{ post.teaser }} <a href="/post/{{ post.id }}">mehr...</a>
     </p>
   @end
   
