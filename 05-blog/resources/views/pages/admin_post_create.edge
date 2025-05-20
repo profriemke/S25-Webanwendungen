@@ -9,9 +9,31 @@
     <h1>Neuer Post</h1>
     <form action="/admin/post/create" method="post">
         {{csrfField()}}
-        <input type="text" name="title" placeholder="Titel"><br>
-        <input type="text" name="teaser" placeholder="Teaser"><br>
-        <textarea name="text" cols="50" rows="20" placeholder="Text"></textarea><br>
+        @if(error !=undefined && error.title != '')
+        <strong>{{error.title}}</strong><br>            
+        @end
+        <input type="text" name="title" placeholder="Titel" 
+        @if(title != undefined) 
+            value="{{title}}"
+        @end
+        >
+        <br>
+        @if(error!= undefined && error.teaser != '')
+        <strong>{{error.teaser}}</strong><br>            
+        @end
+        <input type="text" name="teaser" placeholder="Teaser" 
+        @if(teaser != undefined) 
+        value="{{teaser}}"
+            @end
+    ><br>
+        @if(error!= undefined && error.text != '')
+        <strong>{{error.text}}</strong><br>            
+        @end
+        <textarea name="text" cols="50" rows="20" placeholder="Text">
+        @if(text != undefined) 
+          {{text}}
+        @end
+        </textarea><br>
         <input type="submit">
     </form>
 </body>

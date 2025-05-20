@@ -29,10 +29,25 @@ router.get('/admin/post/create', async ({ view, session, response  })=>{
 
 })
 
-router.post('/admin/post/create', async ({ request, response, session })=>{
+router.post('/admin/post/create', async ({ request, response, session, view })=>{
     if(!session.get('user')){
         return response.redirect('/login')
     }
+    let error = {title: '', text: '', teaser:''}
+    if(!request.input('title')){
+       error.title='Titel fehlt'
+    }
+    if(!request.input('teaser')){
+        error.teaser='Teaser fehlt'
+     }
+     if(!request.input('text')){
+        error.text='Text fehlt'
+     }
+     if(error.title !='' || error.teaser !='' || error.text!=''){
+        return view.render('pages/admin_post_create', {error:error, title: request.input('title'), teaser: request.input('teaser'), text: request.input('text')})
+     }
+
+
     const result = await  db.table('posts')
                             .insert({
                                 title: request.input('title'),
@@ -124,6 +139,41 @@ router.get('/logout', async ({ session, response })=>{
     session.forget('user')
     return response.redirect('/')
 })
+
+// Register
+router.get('/register', async({ view })=>{
+    return view.render('pages/register')
+})
+
+router.post('/register', async ({ request, response, session })=>{
+try{
+    const {firstname, lastname, login, password} = request.all()
+    if (!login || !password || !firstname || !lastname) {
+        session.flash('notification', {
+            type: 'error',
+            message: 'Du musst alle Felder ausfüllen.'
+          })
+        return response.redirect().back()
+    }
+    const result = await db.table('users')
+                            .insert(
+                                {
+                                    firstname,
+                                    lastname,
+                                    login,
+                                    password: await hash.make(password)
+                                })
+    if (!result || result.length === 0) {
+        return response.redirect().back()
+    }                        
+}catch(error){
+    console.log('Fehler register', error)
+    return response.redirect().back()
+
+}
+    return response.redirect('/login')
+})
+
 
 // Session Demo
 
