@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0px;;
+        }
+        #layout{
+            display: grid;
+            width: 100px;
+            height: 100px;
+            grid-template-columns: auto auto auto auto;
+            grid-template-rows: 2fr 5fr 1fr;
+        }
+        header{
+            grid-row: 1;
+            grid-column: 1 / span 4;
+            background-color: chocolate;
+        }
+        nav{
+            grid-row: 2;
+            grid-column: 1;
+            background-color: blueviolet;
+        }
+        main{
+            grid-row: 2;
+            grid-column: 2 / span 3;
+            background-color: chartreuse;
+        }
+        footer{
+            grid-row: 3;
+            grid-column: 1 / span 4;
+            background-color: deeppink;
+        }
+    </style>
+</head>
+<body>
+    <div id="layout">
+        <header>header</header>
+        <nav>navi</nav>
+        <main>content</main>
+        <footer>footer</footer>
+    </div>
+    
+</body>
+</html>

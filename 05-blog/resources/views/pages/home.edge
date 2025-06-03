@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Riemkes Blog</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   @include('partials/menu')
+  <main>
   <h1>Mein Blog</h1>
   @if(user === undefined)
   <p><a href="/login">anmelden</a></p>
@@ -22,6 +24,6 @@
       {{ post.teaser }} <a href="/post/{{ post.id }}">mehr...</a>
     </p>
   @end
-  
+  </main>
 </body>
 </html>
