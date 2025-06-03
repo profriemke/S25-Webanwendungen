@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Neuer Post</h1>
-    <form action="/admin/post/create" method="post">
+    <form action="/admin/post/create" method="post" enctype="multipart/form-data">
         {{csrfField()}}
         @if(error !=undefined && error.title != '')
         <strong>{{error.title}}</strong><br>            
@@ -34,6 +34,7 @@
           {{text}}
         @end
         </textarea><br>
+        <input type="file" name="image"><br>
         <input type="submit">
     </form>
 </body>

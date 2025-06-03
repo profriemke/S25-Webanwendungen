@@ -8,6 +8,9 @@
 <body>
     <h1>{{ post.title }}</h1>
     <p>erstellt: {{ new Date(post.date).toLocaleDateString() }}</p>
+    @if(post.image)
+     <img src="{{await driveUrl(post.image, 'fs')}}" height="150">
+    @end
     <p>{{ post.teaser }}</p>
     <p>{{ post.text }}</p>
     <p>geschrieben von: {{ firstname }} {{ lastname }}</p>

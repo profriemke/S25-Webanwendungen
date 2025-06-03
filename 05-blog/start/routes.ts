@@ -10,23 +10,16 @@
 import router from '@adonisjs/core/services/router'
 import db from '@adonisjs/lucid/services/db'
 import hash from '@adonisjs/core/services/hash'
+import { cuid } from '@adonisjs/core/helpers'
+import drive from '@adonisjs/drive/services/main'
+const PostsController = () => import('#controllers/posts_controller')
 
+router.get('/', [PostsController, 'home'])
+router.get('/admin/post/create', [PostsController, 'create'])
 
-router.get('/', async ({ view, session })=>{
-    const posts = await db.from('posts').select('*').orderBy('id', 'desc')    
-    return view.render('pages/home', { posts, user: session.get('user') })
-})
 
 router.get('/about', async({ view })=>{
     return view.render('pages/about')
-})
-
-router.get('/admin/post/create', async ({ view, session, response  })=>{
-    if(!session.get('user')){
-        return response.redirect('/login')
-    }
-    return view.render('pages/admin_post_create')
-
 })
 
 router.post('/admin/post/create', async ({ request, response, session, view })=>{
@@ -46,15 +39,23 @@ router.post('/admin/post/create', async ({ request, response, session, view })=>
      if(error.title !='' || error.teaser !='' || error.text!=''){
         return view.render('pages/admin_post_create', {error:error, title: request.input('title'), teaser: request.input('teaser'), text: request.input('text')})
      }
-
-
+     const image = request.file('image', {size: '10mb', extnames: ['jpg', 'png', 'webp']})
+     if(!image){
+        return 'Fehler Upload'
+     }
+     if(!image.isValid){
+        return image.errors
+     }
+    const key = cuid()+'.'+image.extname
+    await image.moveToDisk(key, 'fs')
     const result = await  db.table('posts')
                             .insert({
                                 title: request.input('title'),
                                 teaser: request.input('teaser'),
                                 text: request.input('text'),
                                 date: new Date().toString(),
-                                author: session.get('user').login
+                                author: session.get('user').login,
+                                image: key
                             })
     return response.redirect('/')
 })
@@ -198,4 +199,21 @@ router.get('/count', async ({session})=>{
 router.get('/hash', async ()=>{
     const h = await hash.make('123')
     return h
+})
+
+// Drive Secret Demo
+
+router.get('/secret', async ({view})=>{
+    return view.render('pages/secret')
+})
+
+router.post('/secret', async({request})=>{
+    const file = request.file('file')
+    const key= cuid()+'.'+file?.extname
+    await file?.moveToDisk(key,'secretfs')
+
+
+    let url = await drive.use('secretfs').getSignedUrl(key)
+    return url
+
 })
