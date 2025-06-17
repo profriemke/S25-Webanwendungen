@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        nav ul{
+            display: flex;
+            flex-direction: row;
+            list-style: none;
+            margin: 0px;
+            padding:0px;
+            width: 100vw;
+            
+         
+        }
+        nav ul li a{
+            display: block;
+            height: 30px;
+            width: 150px;
+            background-color: brown;
+            text-decoration: none;
+            padding: 5px;
+            color: white;
+        }
+        nav ul li a:hover{
+           background-color: rgb(171, 70, 70); 
+        }
+
+        @media screen and (max-width: 800px){
+          nav ul{
+           flex-direction: column;
+          }
+          nav ul li a{
+            width: 80vw;
+            text-align: center;
+          }
+        }
+         @media screen and (max-width: 400px){
+          nav ul{
+           flex-direction: column;
+          }
+          nav ul li a{
+            width: 80vw;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+          }
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Produkte</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Impressum</a></li>
+            <li><a href="#">Datenschutz</a></li>
+        </ul>
+    </nav>
+</body>
+
+</html>
