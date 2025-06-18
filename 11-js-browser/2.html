@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <h1>Überschrift</h1>
+    <img src="https://img.riemke.dev/20/20" id="image">
+    <br>
+    <a href="https://www.hdm-stuttgart.de/wib">WI</a>
+    <br>
+    <button onclick="$('h1').hide()">ausblenden</button>
+    <button onclick="$('h1').show()">einblenden</button>
+    <button onclick="$('h1').toggle()">toggle</button>
+    <button onclick="$('h1').css('color','red')">rot</button>
+    <button onclick="$('h1').html('haha')">Inhalt</button>
+    <button onclick="$('#image').attr('src', 'https://img.riemke.dev/200/20')">breit</button>
+    <button onclick="$('a').attr('href', 'https://www.omm.hdm-stuttgart.de'); $('a').html('OMM')">omm</button>
+
+</body>
+
+</html>
