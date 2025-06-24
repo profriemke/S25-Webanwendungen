@@ -18,6 +18,13 @@ router.get('/', [PostsController, 'home'])
 router.get('/admin/post/create', [PostsController, 'create'])
 
 
+router.get('/api/posts', async () => {
+  const posts = await db.from('posts')
+                              .select('*')
+                              .orderBy('date', 'desc');
+  return JSON.stringify(posts)
+})
+
 router.get('/about', async({ view })=>{
     return view.render('pages/about')
 })
